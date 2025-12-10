@@ -80,3 +80,24 @@ The main() function demonstrates:
 - Binary Search (Iterative + Recursive)
 
 - Printing the final sorted array
+---
+## 📚 Concepts Covered
+
+Sorting Algorithms
+
+Searching Algorithms
+
+Recursion
+
+Divide-and-Conquer
+
+Heap operations
+
+Pointers & arrays
+
+---
+
+## 👨‍💻 Author
+
+**Mohanad Tarek (Honda)**  
+OOP Labs – ITI Training
