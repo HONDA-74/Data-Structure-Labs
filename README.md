@@ -68,3 +68,15 @@ Data-Structure-Labs/
 │ ├── main.exe # Compiled executable
 │
 └── README.md # Main repo documentation
+---
+## 🧪 Demo
+
+The main() function demonstrates:
+
+- Sorting algorithms
+
+- Sequential Search
+
+- Binary Search (Iterative + Recursive)
+
+- Printing the final sorted array
