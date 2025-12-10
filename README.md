@@ -61,6 +61,7 @@ Both return the index of the element or `-1` if not found.
 ---
 
 ## 📁 File Structure
+```
 Data-Structure-Labs/
 │
 ├── Lab1/
@@ -68,6 +69,7 @@ Data-Structure-Labs/
 │ ├── main.exe # Compiled executable
 │
 └── README.md # Main repo documentation
+```
 ---
 ## 🧪 Demo
 
