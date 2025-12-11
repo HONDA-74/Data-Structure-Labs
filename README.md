@@ -39,4 +39,10 @@ Focuses on **doubly linked list**, **stack**, and **queue** implementations usin
 4. **Sorted Doubly Linked List** – Insert nodes in sorted order  
 
 **File Structure:**
-
+```
+Lab2/
+├── main.cpp
+├── main.exe
+├── main2.cpp
+├── main2.exe
+```
