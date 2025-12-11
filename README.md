@@ -59,3 +59,40 @@ Covers **Binary Search Tree (BST)** operations, **AVL balancing**, and recursive
 4. **Demonstration** – Example insertions, deletions, searching, counting, and tree traversal  
 
 **File Structure:**
+```
+Lab3/
+├── main.cpp
+├── main.exe
+```
+
+---
+
+## 🧪 Demo
+
+The `main()` function in each lab demonstrates:
+
+- **Lab 1:** Sorting algorithms, sequential & binary search, swap function  
+- **Lab 2:** Doubly linked list, stack & queue operations, sorted DLL, copy & assignment tests  
+- **Lab 3:** BST insertion, deletion, AVL balancing, traversal, search, node count, and level count  
+
+---
+
+## 📚 Concepts Covered
+
+- Sorting Algorithms (Bubble, Merge, Quick, Heap)  
+- Searching Algorithms (Sequential, Binary)  
+- Doubly Linked List (DLL)  
+- Stack & Queue using DLL  
+- Sorted Doubly Linked List  
+- Binary Search Tree (BST)  
+- AVL Tree (Self-Balancing BST)  
+- Recursion  
+- Divide-and-Conquer  
+- Pointers & Arrays  
+
+---
+
+## 👨‍💻 Author
+
+**Mohanad Tarek (Honda)**  
+Data Structure Labs – ITI Training
