@@ -59,7 +59,6 @@ Covers **Binary Search Tree (BST)** operations, **AVL balancing**, and recursive
 ```
 Lab3/
 ├── main.cpp
-├── main.exe
 ```
 
 ---
