@@ -42,9 +42,7 @@ Focuses on **doubly linked list**, **stack**, and **queue** implementations usin
 ```
 Lab2/
 ├── main.cpp
-├── main.exe
 ├── main2.cpp
-├── main2.exe
 ```
 
 ---
