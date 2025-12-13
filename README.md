@@ -23,7 +23,6 @@ Includes implementations of classic **sorting** and **searching** algorithms, as
 ```
 Lab1/
 ├── main.cpp # All implementations
-├── main.exe # Compiled executable
 ```
 
 
