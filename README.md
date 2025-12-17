@@ -62,7 +62,40 @@ Lab3/
 ```
 
 ---
+---
 
+### 📦 Lab 4 – Dynamic Array & Binary Heap
+Focuses on building **custom data structures from scratch** using templates, dynamic memory management, and STL containers.
+
+**Contents:**
+
+1. **Dynamic Array (Template Class)**
+   - Dynamic resizing (auto-grow & trim)
+   - Add and remove elements
+   - Copy constructor & assignment operator
+   - Operator overloading `[]` with bounds checking
+   - Difference between **size** and **capacity**
+
+2. **Binary Min Heap (Template Class)**
+   - Implemented using `std::vector`
+   - Insert elements with heapify-up
+   - Delete minimum element with heapify-down
+   - Find minimum element
+   - Operator overloading for indexed access
+
+**Concepts Applied:**
+- Templates
+- Dynamic memory allocation (`new` / `delete`)
+- Copy constructor & operator overloading
+- Heap property maintenance
+- Array-based tree representation
+
+**File Structure:**
+```
+Lab4/
+├── main.cpp # Dynamic Array implementation & testing
+├── main2.cpp # Binary Min Heap implementation & testing
+```
 ## 🧪 Demo
 
 The `main()` function in each lab demonstrates:
