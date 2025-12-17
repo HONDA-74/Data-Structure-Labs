@@ -96,6 +96,7 @@ Lab4/
 ├── main.cpp # Dynamic Array implementation & testing
 ├── main2.cpp # Binary Min Heap implementation & testing
 ```
+---
 ## 🧪 Demo
 
 The `main()` function in each lab demonstrates:
