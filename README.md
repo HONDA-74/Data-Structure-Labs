@@ -20,3 +20,7 @@ Includes implementations of classic **sorting** and **searching** algorithms, as
 7. **Binary Search** – Iterative & Recursive versions  
 
 **File Structure:**
+```
+Lab1/
+├── main.cpp # All implementations
+```
