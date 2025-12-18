@@ -88,3 +88,8 @@ Focuses on building **custom data structures from scratch** using templates, dyn
 - Array-based tree representation
 
 **File Structure:**
+```
+Lab4/
+├── main.cpp # Dynamic Array implementation & testing
+├── main2.cpp # Binary Min Heap implementation & testing
+```
