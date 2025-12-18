@@ -93,3 +93,85 @@ Lab4/
 ├── main.cpp # Dynamic Array implementation & testing
 ├── main2.cpp # Binary Min Heap implementation & testing
 ```
+
+---
+
+### 🗂 Lab 5 – Hash Table & Graph
+Covers **Hash Table** implementation using separate chaining and **Graph** algorithms including DFS, BFS, and Dijkstra.
+
+**Contents:**
+1. **Hash Table (Template Class)**
+   - Stores key-value pairs (example: `int` → `Employee`)  
+   - Collision handling using **separate chaining** (linked lists in buckets)  
+   - Functions:
+     - `Insert` – add a key-value pair  
+     - `Remove` – delete a key  
+     - `LookUP` – search for a value by key  
+     - `Contains` – check if a key exists  
+     - `Rehash` – resize and rehash when load factor is high  
+
+2. **Graph (Template Class)**
+   - Maximum 50 vertices  
+   - Represented with an **adjacency matrix**  
+   - Marks array for visited nodes  
+   - Functions:
+     - `AddVertex` / `AddEdge` – build the graph  
+     - `GetAdjVertices` – get neighbors of a vertex  
+     - `DepthFirstSearch (DFS)` – visit nodes depth-first  
+     - `BreadthFirstSearch (BFS)` – visit nodes breadth-first  
+     - `Dijkstra` – find shortest paths from a start vertex  
+     - `GetPathWeight` – get edge weight between two vertices  
+
+**Concepts Applied:**
+- Templates  
+- Linked List & STL usage  
+- Hashing & collision handling  
+- Priority Queue (min-heap) for Dijkstra  
+- Graph traversal algorithms (DFS & BFS)  
+- Adjacency matrix representation  
+
+**File Structure:**
+```
+Lab5/
+├── main.cpp # Hash Table testing
+├── main2.cpp # Graph testing with DFS, BFS, and Dijkstra
+```
+
+---
+
+## 🧪 Demo
+
+The `main()` function in each lab demonstrates:
+
+- **Lab 1:** Sorting algorithms, sequential & binary search, swap function  
+- **Lab 2:** Doubly linked list, stack & queue operations, sorted DLL, copy & assignment tests  
+- **Lab 3:** BST insertion, deletion, AVL balancing, traversal, search, node count, and level count  
+- **Lab 4:** Dynamic Array operations and Binary Min Heap operations  
+- **Lab 5:** Hash Table insertions, lookups, deletions; Graph DFS, BFS, Dijkstra shortest paths
+
+---
+
+## 📚 Concepts Covered
+
+- Sorting Algorithms (Bubble, Merge, Quick, Heap)  
+- Searching Algorithms (Sequential, Binary)  
+- Doubly Linked List (DLL)  
+- Stack & Queue using DLL  
+- Sorted Doubly Linked List  
+- Binary Search Tree (BST)  
+- AVL Tree (Self-Balancing BST)  
+- Dynamic Array & Binary Heap  
+- Hash Table with separate chaining  
+- Graph representation & traversal (DFS, BFS)  
+- Dijkstra Algorithm (Shortest Path)  
+- Recursion  
+- Divide-and-Conquer  
+- Pointers & Arrays  
+- Templates & STL usage  
+
+---
+
+## 👨‍💻 Author
+
+**Mohanad Tarek (Honda)**  
+Data Structure Labs – ITI Training
