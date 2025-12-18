@@ -1,109 +1,212 @@
 #include <iostream>
-#include <vector>
-#include <limits>
+#include<vector>
+#include<list>
+#include<stack> 
+#include<functional>
+#include<algorithm>
+#include<queue>
 using namespace std;
 
-template<typename T>
-class BinaryHeap {
-private:
-    vector<T> arr;
-    int size;
+template<class VertexType>
+class Graph
+{
+    int numVertices ;               
+    VertexType vertices[50] ; 
+    int edges[50][50] ;              
+    bool marks[50];
 
 public:
-    BinaryHeap(int capacity = 4) : arr(capacity+1) {
-        size = 0;
-        arr[0] = numeric_limits<T>::min() ;
+    explicit Graph() {numVertices = 0;}
+
+    void MakeEmpty()
+    {
+    numVertices = 0;
+    for (int i = 0; i < 50; i++)
+    {
+        marks[i] = false;
+        for (int j = 0; j < 50; j++)
+            edges[i][j] = 0; 
+    }
     }
 
-    bool isEmpty() const {
-        return size == 0;
+    bool IsEmpty(){ return numVertices == 0; }
+
+    bool IsFull(){ return numVertices >= 50; }
+
+    void AddVertex (const VertexType& vertex)
+    {
+    if (!IsFull())
+    {
+        vertices[numVertices] = vertex;
+        numVertices++;
+    }
     }
 
-    T* findMin() {
-        if (isEmpty()) {
-            return nullptr;
+    void AddEdge(VertexType fromVertex ,VertexType toVertex , int Weight )
+    {
+    int row = GetIndex(fromVertex);
+    int col = GetIndex(toVertex);
+
+    if (row != -1 && col != -1)
+        edges[row][col] = Weight;
+
+    }
+
+    int GetPathWeight (VertexType fromVertex ,VertexType toVertex)
+    {
+    int row = GetIndex(fromVertex);
+    int col = GetIndex(toVertex);
+    return edges[row][col];
+    }
+
+    int GetIndex (const VertexType& vertex)
+    {
+    for (int i = 0; i < numVertices; i++)
+        if (vertices[i] == vertex)
+            return i;
+    return -1;
+    }
+
+    void GetAdjVertices (VertexType vertex , queue<VertexType> & VertexQ)
+    {
+    int row = GetIndex(vertex);
+    for (int i = 0; i < numVertices; i++)
+        if (edges[row][i] != 0)
+            VertexQ.push(vertices[i]);
+    }
+
+    void ClearMarks ()
+    {
+    for (int i = 0; i < numVertices; i++)
+        marks[i] = false;
+    }
+
+    void MarkVertex(VertexType vertex)
+    {
+    int idx = GetIndex(vertex);
+    if (idx != -1)
+        marks[idx] = true;
+    }
+
+    bool IsMarked (VertexType vertex)
+    {
+    int idx = GetIndex(vertex);
+    return (idx != -1) ? marks[idx] : false;
+    }
+
+
+    void DepthFirstSearch (const VertexType& startVertex , const VertexType& endVertex)
+    {
+    stack<int> S;
+    ClearMarks();
+
+    int startIdx = GetIndex(startVertex);
+    S.push(startIdx);
+    marks[startIdx] = true;
+
+    while (!S.empty())
+    {
+        int current = S.top(); S.pop();
+        cout << vertices[current] << " ";
+
+        if (vertices[current] == endVertex)
+            return;
+
+        for (int i = 0; i < numVertices; i++)
+        {
+            if (edges[current][i] != 0 && !marks[i])
+            {
+                S.push(i);
+                marks[i] = true;
+            }
         }
-        return &arr[1];
     }
+    }  
 
-    ~BinaryHeap() {
-        arr.clear();
-    }
+    void Dijkstra (const VertexType& startVertex)
+    {
+    const int INF = 1e9; 
+    int startIdx = GetIndex(startVertex);
 
-    void insert(const T& value) {
-        if (size == arr.size() - 1) {
-            arr.resize(arr.size() * 2);
-        }
-            int nodeIndex = ++size;
-            arr[nodeIndex] = value;
-            heapfyUp(nodeIndex);    
-    }
+    vector<int> dist(numVertices, INF);   
+    vector<int> prev(numVertices, -1);   
+    vector<bool> visited(numVertices, false);
 
-    T deleteMin() {
-        if (isEmpty()) return T();
-        T min = arr[1];
-        arr[1] = arr[size--];
-        heapfyDown(1);
-        return min;
-    }
+    dist[startIdx] = 0;
 
-    void heapfyDown(int index) {
-    while (2 * index <= size) {
-        int left = 2 * index;
-        int right = 2 * index + 1;
-        int minIndex = left;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push({0, startIdx});
 
-        if (right <= size && arr[right] < arr[left])
-            minIndex = right;
+    while(!pq.empty())
+    {
+        int u = pq.top().second; pq.pop();
+        if (visited[u]) continue;
+        visited[u] = true;
 
-        if (arr[index] <= arr[minIndex])
-            break;
-
-        swap(arr[index], arr[minIndex]);
-        index = minIndex;
-    }
-    }
-
-    void heapfyUp(int index) {
-        while (index > 1 && arr[index] < arr[index / 2]) {
-            swap(arr[index], arr[index / 2]);
-            index /= 2;
+        for(int v = 0; v < numVertices; v++)
+        {
+            if(edges[u][v] != 0)
+            {
+                int weight = edges[u][v];
+                if(dist[u] + weight < dist[v])
+                {
+                    dist[v] = dist[u] + weight;
+                    prev[v] = u;
+                    pq.push({dist[v], v});
+                }
+            }
         }
     }
 
-    void view() {
-        for (int i = 1; i <= size; ++i) {
-            cout << arr[i] << " ";
-        }
-        cout << endl;
+    cout << "Shortest distances from " << startVertex << ":\n";
+    for(int i=0; i<numVertices; i++)
+    {
+        cout << vertices[i] << " : ";
+        if(dist[i] == INF) cout << "INF\n";
+        else cout << dist[i] << "\n";
     }
 
-    T& operator[](int index) {
-        if (index < 1 || index > size) {
-            cout << "Index out of range" << endl;
-            return arr[0];
-        }
-        return arr[index];
+    cout << "\nPaths from " << startVertex << ":\n";
+    for(int i=0; i<numVertices; i++)
+    {
+        if(i == startIdx) continue;
+        if(dist[i] == INF) { cout << vertices[i] << " : No path\n"; continue; }
+
+        vector<int> path;
+        for(int at=i; at!=-1; at=prev[at]) path.push_back(at);
+
+        cout << vertices[i] << " : ";
+        for(int j=path.size()-1; j>=0; j--) cout << vertices[path[j]] << " ";
+        cout << "\n";
     }
+    }
+
 };
 
 int main(){
-    BinaryHeap<int> heap;
-    heap.insert(10);
-    heap.insert(5);
-    heap.insert(20);
-    heap.insert(15);
-    heap.view();
+    Graph<string> g;
 
-    int deletedElement = heap.deleteMin();
-    cout << "Deleted Element: " << deletedElement << endl;
 
-    heap.view();
+    g.AddVertex("A");
+    g.AddVertex("B");
+    g.AddVertex("C");
+    g.AddVertex("D");
+    g.AddVertex("E");
 
-    int* minElement = heap.findMin();
-    cout << "Minimum Element: " << *minElement << endl;
+    g.AddEdge("A", "B", 2);
+    g.AddEdge("A", "C", 5);
+    g.AddEdge("B", "C", 1);
+    g.AddEdge("B", "D", 3);
+    g.AddEdge("C", "D", 2);
+    g.AddEdge("D", "E", 1);
 
-    cout << "first element: " << heap[1] << endl;
+    cout << "Depth First Search from A to E:\n";
+    g.DepthFirstSearch("A", "E");
+
+    cout << "\n\nDijkstra's Algorithm starting from A:\n";
+    g.Dijkstra("A");
+
+
 
     return 0;
 }
