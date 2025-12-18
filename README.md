@@ -55,3 +55,7 @@ Covers **Binary Search Tree (BST)** operations, **AVL balancing**, and recursive
 4. **Demonstration** – Example insertions, deletions, searching, counting, and tree traversal  
 
 **File Structure:**
+```
+Lab3/
+├── main.cpp
+```
