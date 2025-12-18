@@ -42,3 +42,16 @@ Lab2/
 ├── main.cpp
 ├── main2.cpp
 ```
+
+---
+
+### 🌳 Lab 3 – Binary Search Tree (BST) & AVL Balancing
+Covers **Binary Search Tree (BST)** operations, **AVL balancing**, and recursive tree traversal.
+
+**Contents:**
+1. **BST Node Structure** – Employee data, left & right pointers, height  
+2. **BST Operations** – Insert, Delete, Search, Traverse, Count nodes & levels  
+3. **AVL Tree** – Automatic rebalancing after insertion/deletion  
+4. **Demonstration** – Example insertions, deletions, searching, counting, and tree traversal  
+
+**File Structure:**
