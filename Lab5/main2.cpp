@@ -10,10 +10,10 @@ using namespace std;
 template<class VertexType>
 class Graph
 {
-    int numVertices ;               
-    VertexType vertices[50] ; 
-    int edges[50][50] ;              
-    bool marks[50];
+    int numVertices ;               // Number of vertices + the pointer of the index of the next vertex
+    VertexType vertices[50] ;       // Array of vertices
+    int edges[50][50] ;             // Adjacency matrix 
+    bool marks[50];                 // Marks array
 
 public:
     explicit Graph() {numVertices = 0;}
@@ -106,20 +106,20 @@ public:
 
     while (!S.empty())
     {
-        int current = S.top(); S.pop();
-        cout << vertices[current] << " ";
+        int current = S.top(); S.pop(); //b // c // d // e
+        cout << vertices[current] << " "; // a // b // c // d
 
         if (vertices[current] == endVertex)
-            return;
+            return; // found end
 
-        for (int i = 0; i < numVertices; i++)
+        for (int i = numVertices-1; i >= 0; i--)
         {
-            if (edges[current][i] != 0 && !marks[i])
-            {
-                S.push(i);
-                marks[i] = true;
-            }
+        if (edges[current][i] != 0 && !marks[i])
+        {
+            S.push(i); // a , c , d  , e
         }
+        }
+        marks[current] = true; // a // b// c //d
     }
     }  
 
