@@ -1,133 +1,169 @@
 #include <iostream>
+#include <vector>
+#include <list>
+#include <functional>
+#include <algorithm>
+#include <queue>
+#include <stdexcept>
 
 using namespace std;
 
-template<typename T>
-class DynamicArray 
+struct Employee
 {
-    T* arr;
-    int size;
-    int capacity;
-    static const int INITIAL_CAPACITY = 4;
-public:
-    DynamicArray() : size(0), capacity(INITIAL_CAPACITY) {
-        arr = new T[capacity];
-    }
+    int id;
+    string name;
+    string department;
+    double salary;
 
-    DynamicArray(const DynamicArray& other) : size(other.size), capacity(other.capacity) {
-        arr = new T[capacity];
-        for (int i = 0; i < size; ++i) {
-            arr[i] = other.arr[i];
-        }
-    }
+    Employee() {}
 
-    ~DynamicArray() {
-        delete[] arr;
-    }
-
-    DynamicArray& operator=(const DynamicArray& other) {
-        if (this != &other) {
-            delete[] arr;
-            size = other.size;
-            capacity = other.capacity;
-            arr = new T[capacity];
-            for (int i = 0; i < size; ++i) {
-                arr[i] = other.arr[i];
-            }
-        }
-        return *this;
-    }
-
-    void add(const T& value) {
-        if(size == capacity){ 
-            resize(capacity * 2); 
-        }
-        arr[size++] = value;
-    }
-
-    void remove_at(int index) {
-        if (index < 0 || index >= size) {
-            cout << "Index out of range" << endl;
-            return;
-        }
-        for (int i = index; i < size - 1; ++i) {
-            arr[i] = arr[i + 1];
-        }
-        --size;
-    }
-
-    void remove(const T& value) { 
-        for (int i = 0; i < size; ++i) {
-            if (arr[i] == value) {
-                remove_at(i);
-                --i;
-            }
-        }
-    }
-
-    void resize(int newSize) {
-        if (newSize <= capacity) return;
-        T* newArr = new T[newSize];
-        for (int i = 0; i < size; ++i) {
-            newArr[i] = arr[i];
-        }
-        delete[] arr;
-        arr = newArr;
-        capacity = newSize;
-    }
-
-    const T& operator[](int index) const {
-    if (index < 0 || index >= size) {
-        throw out_of_range("Index out of range");
-    }
-    return arr[index];
-}
-
-    void trim() {
-    if (size == capacity) return;
-
-    T* newArr = new T[size];
-    for (int i = 0; i < size; ++i) {
-        newArr[i] = arr[i];
-    }
-    delete[] arr;
-    arr = newArr;
-    capacity = size;
-    }
-
-    int getSize() const {
-        return size;
-    }
-
-    int getCapacity() const {
-        return capacity;
-    }
-
-    void print() const {
-        for (int i = 0; i < size; ++i) {
-            cout << arr[i] << " ";
-        }
-        cout << endl;
+    Employee(int _id, string _name, string _dept, double _salary)
+    {
+        id = _id;
+        name = _name;
+        department = _dept;
+        salary = _salary;
     }
 };
 
+template<class KeyType, class ValueType>
+class MapEntry
+{
+    KeyType key;
+    ValueType value;
 
-int main(){
-    DynamicArray<int> arr ;
-    arr.add(10);
-    arr.add(20);
-    cout << "size: " << arr.getSize() << ", capacity: " << arr.getCapacity() << endl;
-    arr.add(30);
-    arr.add(40);
-    cout << "size: " << arr.getSize() << ", capacity: " << arr.getCapacity() << endl;
-    arr.add(50);
-    cout << "size: " << arr.getSize() << ", capacity: " << arr.getCapacity() << endl;
-    DynamicArray<int> arr2 = arr;
-    DynamicArray<int> arr3;
-    arr3 = arr;
-    arr2.print();
-    arr3.print();
-    arr.trim();
-    cout << "size: " << arr.getSize() << ", capacity: " << arr.getCapacity() << endl;
+public:
+    MapEntry(KeyType k, ValueType v) : key(k), value(v) {}
+
+    KeyType GetKey() const { return key; }
+    ValueType GetValue() const { return value; }
+};
+
+
+template<class KeyType, class ValueType>
+class HashTable
+{
+    vector<list<MapEntry<KeyType, ValueType>>> theLists;
+    int currentSize;
+
+public:
+    explicit HashTable(int size = 100) : theLists(size), currentSize(0) {}
+
+    bool Contains(const KeyType& x) const
+    {
+        int index = MyHashFunction(x);
+        const auto& bucket = theLists[index];
+
+        for (const auto& entry : bucket)
+        {
+            if (entry.GetKey() == x)
+                return true;
+        }
+        return false;
+    }
+
+    bool Insert(const KeyType& key, const ValueType& value)
+    {
+        if (Contains(key)) return false;
+
+        int index = MyHashFunction(key);
+        theLists[index].push_back(MapEntry<KeyType, ValueType>(key, value));
+        currentSize++;
+
+        return true;
+    }
+
+    bool Remove(const KeyType& key)
+    {
+        int index = MyHashFunction(key);
+        auto& bucket = theLists[index];
+
+        for (auto itr = bucket.begin(); itr != bucket.end(); ++itr)
+        {
+            if (itr->GetKey() == key)
+            {
+                bucket.erase(itr);
+                currentSize--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    ValueType LookUP(const KeyType& key) const
+    {
+        int index = MyHashFunction(key);
+        const auto& bucket = theLists[index];
+
+        for (const auto& entry : bucket)
+        {
+            if (entry.GetKey() == key)
+                return entry.GetValue();
+        }
+
+        throw runtime_error("Key not found");
+    }
+
+    void MakeEmpty()
+    {
+        for (auto& lst : theLists)
+            lst.clear();
+
+        currentSize = 0;
+    }
+
+    void Rehash()
+    {
+    vector<list<MapEntry<KeyType, ValueType>>> oldLists = theLists;
+
+    theLists.clear();
+    theLists.resize(oldLists.size() * 2);
+
+    currentSize = 0;
+
+    for (auto& bucket : oldLists)
+    {
+        for (auto& entry : bucket)
+        {
+            Insert(entry.GetKey(), entry.GetValue());
+        }
+    }
+
+    }
+
+protected:
+    int MyHashFunction(const KeyType& x) const
+    {
+        hash<KeyType> hashFunc;
+        return hashFunc(x) % theLists.size();
+    }
+};
+
+int main()
+{
+    HashTable<int, Employee> table;
+
+    Employee emp1(1, "Ahmed", "IT", 5000);
+    Employee emp2(2, "Mohamed", "HR", 6000);
+    Employee emp3(3, "Ali", "Finance", 5500);
+    Employee emp4(101, "Sara", "IT", 6200);
+
+    table.Insert(1, emp1);
+    table.Insert(2, emp2);
+    table.Insert(3, emp3);
+    table.Insert(101, emp4);
+    table.Insert(2, emp2) ? cout << "Inserted\n" : cout << "Not Inserted\n";
+
+    table.Contains(101) ? cout << "Found\n" : cout << "Not Found\n";
+
+    Employee e = table.LookUP(2);
+
+    cout << e.id << " "
+         << e.name << " "
+         << e.department << " "
+         << e.salary << endl;
+
+    table.Remove(1);
+
     return 0;
 }
