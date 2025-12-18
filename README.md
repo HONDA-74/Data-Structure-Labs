@@ -24,3 +24,17 @@ Includes implementations of classic **sorting** and **searching** algorithms, as
 Lab1/
 ├── main.cpp # All implementations
 ```
+
+---
+
+### 🧮 Lab 2 – Doubly Linked List, Stack & Queue
+Focuses on **doubly linked list**, **stack**, and **queue** implementations using nodes and pointers.
+
+**Contents:**
+1. **Doubly Linked List (DLL)** – Add, Delete, Search, Display, Copy Constructor, Assignment Operator  
+2. **Stack (StackDLL)** – Push, Pop, Peek operations  
+3. **Queue (QueueDLL)** – Enqueue, Dequeue, Peek operations  
+4. **Sorted Doubly Linked List** – Insert nodes in sorted order  
+
+**File Structure:**
+
